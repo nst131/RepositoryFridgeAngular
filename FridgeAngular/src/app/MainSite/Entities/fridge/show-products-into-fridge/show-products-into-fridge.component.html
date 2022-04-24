@@ -1,0 +1,26 @@
+<input type="button" value="Add" class="btn btn-primary" (click)="redirectOnAddProductIntoFridge()" />
+<table class="table table-striped">
+      <thead>
+          <tr>
+              <td *ngFor="let name of getProductIntoFridgesName">{{name}}</td>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of getProductIntoFridges">
+              <ng-template [ngTemplateOutlet]="loadTemplate(item)" [ngTemplateOutletContext]="{ $implicit: item}">
+  
+              </ng-template>
+          </tr>
+      </tbody>
+  </table>
+  
+  <ng-template #readOnlyTemplate let-element>
+      <td>{{element.name}}</td>
+      <td>{{element.quantity}}</td>
+      <td>
+          <input type="button" value="Change" class="btn btn-primary" (click)="redirectOnEditProductIntoFridge(element.fridgeProductId)" />
+      </td>
+      <td>
+          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteProductIntoFridge(element.fridgeProductId)" />
+      </td>
+  </ng-template>

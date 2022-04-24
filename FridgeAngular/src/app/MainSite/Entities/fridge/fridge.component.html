@@ -1,0 +1,30 @@
+<input type="button" value="Create" class="btn btn-primary" (click)="redirectOnCreateFridge()" />
+<table class="table table-striped">
+      <thead>
+          <tr>
+              <td *ngFor="let name of fridgesName">{{name}}</td>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of fridges">
+              <ng-template [ngTemplateOutlet]="loadTemplate(item)" [ngTemplateOutletContext]="{ $implicit: item}">
+  
+              </ng-template>
+          </tr>
+      </tbody>
+  </table>
+  
+  <ng-template #readOnlyTemplate let-element>
+      <td>{{element.name}}</td>
+      <td>{{element.ownerName}}</td>
+      <td>{{element.modelName}}</td>
+      <td>
+        <input type="button" value="Products" class="btn btn-dark" (click)="redirectOnShowProductIntoFridge(element.id)" />
+      </td>
+      <td>
+          <input type="button" value="Change" class="btn btn-primary" (click)="redirectOnEditFridge(element.id)" />
+      </td>
+      <td>
+          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteFridge(element.id)" />
+      </td>
+  </ng-template>

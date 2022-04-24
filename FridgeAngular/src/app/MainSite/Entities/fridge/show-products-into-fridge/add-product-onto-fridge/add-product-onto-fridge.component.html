@@ -1,0 +1,27 @@
+<div style=" margin-top: 20px;">
+      <h1 style="text-align: center;">Add Product</h1>
+
+      <form style="width: 100%;" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div style="display: flex; flex-direction: column;">
+          
+                  <label for="productId">Products</label>
+                  <select class="form-select" name="productId" style="margin-top: 10px;" formControlName="productId">
+                      <option *ngFor="let value of arrayProduct" [value]="value.id" >{{value.name}}</option>
+                  </select>
+
+                  <label for="quantity">Quantity</label>
+                  <input class="form-control" type="text" name="quantity" formControlName="quantity" />
+                  <div
+                        *ngIf="form.controls['quantity'].invalid && form.controls['quantity'].touched">
+                        <p class="alert" *ngIf="form.controls['quantity'].errors?.['required']">
+                              Обязательное поле.
+                        </p>
+                        <p class="alert" *ngIf="form.controls['quantity'].errors?.['pattern']">
+                              Поле должно быть целое
+                        </p>
+                  </div>
+
+                  <input class="btn btn-primary" style="margin-top: 10px;" type="submit" [disabled]="form.invalid" value="Add">
+            </div>
+      </form>
+</div>

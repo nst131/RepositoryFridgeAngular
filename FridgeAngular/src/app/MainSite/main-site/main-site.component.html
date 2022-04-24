@@ -1,0 +1,20 @@
+<div class="container">
+
+      <div class="row">
+        <h1 class="col-11">Fridge Presentation</h1>
+        <button class="btn btn-danger col" (click)="logout()">Sign Out</button>
+      </div>
+      
+      <main style="margin-top: 10px;">
+        <nav>
+          <button class="btn" (click)="redirectOnProcedure()">Procedure</button>
+          <h3></h3>
+          <button class="btn" (click)="redirectOnPageFridges()">Fridges</button>
+          <button class="btn" (click)="redirectOnPageProducts()">Products</button>
+        </nav>
+        <div style="width: 75%;">
+          <router-outlet name="main-site"></router-outlet>
+        </div>
+      </main>
+    
+    </div>

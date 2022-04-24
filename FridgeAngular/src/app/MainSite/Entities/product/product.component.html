@@ -1,0 +1,30 @@
+<input type="button" value="Create" class="btn btn-primary" (click)="redirectOnCreateProduct()" />
+<table class="table table-striped">
+      <thead>
+          <tr>
+              <td *ngFor="let name of productsName">{{name}}</td>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of products">
+              <ng-template [ngTemplateOutlet]="loadTemplate(item)" [ngTemplateOutletContext]="{ $implicit: item}">
+  
+              </ng-template>
+          </tr>
+      </tbody>
+  </table>
+  
+  <ng-template #readOnlyTemplate let-element>
+      <td>{{element.name}}</td>
+      <td>{{element.defaultQuantity}}</td>
+      <!-- <td>
+        <img style="width: 100px; height: 100px;" src="https://localhost:5001/api/File/DownloadProductPicture/{{element.name}}.jpeg">
+      </td> -->
+      <td>
+          <input type="button" value="Change" class="btn btn-primary" (click)="redirectOnEditProduct(element.id)" />
+      </td>
+      <td>
+          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteProduct(element.id)" />
+      </td>
+  </ng-template>
+

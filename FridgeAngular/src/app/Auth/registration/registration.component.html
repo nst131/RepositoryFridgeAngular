@@ -1,0 +1,52 @@
+<h1 style="text-align: center;">Registration</h1>
+
+<form style="width: 100%;" novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div style="display: flex; flex-direction: column;">
+
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="name" formControlName="name"/>
+        <div *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched">
+            <p class="alert" *ngIf="registrationForm.controls['name'].errors?.['required']">
+                Обязательное поле.
+            </p>
+            <p class="alert" *ngIf="registrationForm.controls['name'].errors?.['minlength']">
+                Длина строки должна быть не менее {{registrationForm.controls['name'].errors?.['minlength'].requiredLength }} символов.
+                Сейчас {{ registrationForm.controls['name'].errors?.['minlength'].actualLength }}
+            </p>
+        </div>
+
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" formControlName="email" />
+        <div *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">
+            <p class="alert" *ngIf="registrationForm.controls['email'].errors?.['required']">
+                Обязательное поле.
+            </p>
+            <p class="alert" *ngIf="registrationForm.controls['email'].errors?.['minlength']">
+                Длина строки должна быть не менее {{registrationForm.controls['email'].errors?.['minlength'].requiredLength }} символов.
+                Сейчас {{ registrationForm.controls['email'].errors?.['minlength'].actualLength }}
+            </p>
+            <p class="alert" *ngIf="registrationForm.controls['email'].errors?.['emailValidator']">
+                Не правильный формат
+            </p>
+        </div>
+
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" formControlName="password" />
+        <div *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">
+            <p class="alert" *ngIf="registrationForm.controls['password'].errors?.['required']">
+                Обязательное поле.
+            </p>
+        </div>
+
+        <input class="btn btn-primary" style="margin-top: 10px;" type="submit" [disabled]="registrationForm.invalid" value="Registration">
+    </div>
+</form>
+
+<button style="width: 100%; margin-top: 10px;" mat-raised-button [routerLink]="['/auth', {outlets: {auth:['Login']}}]">
+    Redirect to SignIn</button>
+
+<div *ngIf="showError">
+    <p class="alert">
+        {{messageError}}
+    </p>
+</div>

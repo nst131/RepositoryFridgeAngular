@@ -1,0 +1,40 @@
+<h1 style="text-align: center;">Sign In</h1>
+
+<form style="width: 100%;" novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div style="display: flex; flex-direction: column;">
+
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" formControlName="email"/>
+        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+            <p class="alert" *ngIf="loginForm.controls['email'].errors?.['required']">
+                Обязательное поле.
+            </p>
+            <p class="alert" *ngIf="loginForm.controls['email'].errors?.['minlength']">
+                Длина строки должна быть не менее {{ loginForm.controls['email'].errors?.['minlength'].requiredLength }} символов. 
+                Сейчас {{ loginForm.controls['email'].errors?.['minlength'].actualLength }}
+            </p>
+            <p class="alert" *ngIf="loginForm.controls['email'].errors?.['emailValidator']">
+                Не правильный формат
+            </p>
+        </div>
+
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" formControlName="password" />
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+            <p class="alert" *ngIf="loginForm.controls['password'].errors?.['required']">
+                Обязательное поле.
+            </p>
+        </div>
+
+        <input class="btn btn-primary" style="margin-top: 10px;" type="submit" [disabled]="loginForm.invalid" value="SignIn"> 
+    </div>
+</form>
+
+<button style="width: 100%; margin-top: 10px;" mat-raised-button [routerLink]="['/auth', {outlets: {auth:['Registration']}}]">
+    Redirect to Registration</button>
+
+<div *ngIf="error">
+    <p class="alert">
+        {{messageError}}
+    </p>
+</div>

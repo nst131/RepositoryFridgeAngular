@@ -1,0 +1,46 @@
+<h1 style="text-align: center;">Edit Product</h1>
+<form style="width: 100%;" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div style="display: flex; flex-direction: column;">
+
+        <label for="Name">Name</label>
+        <input class="form-control" type="text" name="Name" formControlName="name"/>
+        <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+            <p class="alert" *ngIf="form.controls['name'].errors?.['required']">
+                Обязательное поле.
+            </p>
+            <p class="alert" *ngIf="form.controls['name'].errors?.['minlength']">
+                Длина строки должна быть не менее {{ form.controls['name'].errors?.['minlength'].requiredLength }} символов. 
+                Сейчас {{ form.controls['name'].errors?.['minlength'].actualLength }}
+            </p>
+        </div>
+
+        <label for="defaultQuantity">DefaultQuantity</label>
+        <input class="form-control" type="text" name="defaultQuantity" formControlName="defaultQuantity" />
+        <div *ngIf="form.controls['defaultQuantity'].invalid && form.controls['defaultQuantity'].touched">
+            <p class="alert" *ngIf="form.controls['defaultQuantity'].errors?.['required']">
+                Обязательное поле.
+            </p>
+            <p class="alert" *ngIf="form.controls['defaultQuantity'].errors?.['pattern']">
+                Поле должно быть целое
+            </p>
+        </div>
+
+        <!-- <label for="picture">LoadPicture</label>
+        <input class="form-control" type="file" name="picture" enctype="multipart/form-data" formControlName="file"/>
+        <div *ngIf="form.controls['file'].invalid && form.controls['file'].touched">
+            <p class="alert" *ngIf="form.controls['file'].errors?.['required']">
+                Обязательное поле.
+            </p>
+        </div> -->
+
+        <input class="btn btn-primary" style="margin-top: 10px;" type="submit" [disabled]="form.invalid" value="Edit"> 
+    </div>
+</form>
+
+<div *ngIf="error">
+    <p class="alert" style="text-align: center; color: red;">
+        {{errorMessage}}
+    </p>
+</div>
+
+

@@ -1,0 +1,38 @@
+<div style=" margin-top: 20px;">
+      <h1 style="text-align: center;">Create Fridge</h1>
+
+      <form style="width: 100%;" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div style="display: flex; flex-direction: column;">
+
+                  <label for="Name">Name</label>
+                  <input class="form-control" type="text" name="Name" formControlName="name"/>
+                  <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                      <p class="alert" *ngIf="form.controls['name'].errors?.['required']">
+                          Обязательное поле.
+                      </p>
+                      <p class="alert" *ngIf="form.controls['name'].errors?.['minlength']">
+                          Длина строки должна быть не менее {{ form.controls['name'].errors?.['minlength'].requiredLength }} символов. 
+                          Сейчас {{ form.controls['name'].errors?.['minlength'].actualLength }}
+                      </p>
+                  </div>
+          
+                  <label for="fridgeModelId">FridgeModel</label>
+                  <select class="form-select" name="fridgeModelId" style="margin-top: 10px;" formControlName="fridgeModelId">
+                      <option *ngFor="let value of allFridgeModels" [value]="value.id" >{{value.name}}</option>
+                  </select>
+          
+                  <label for="userId">User</label>
+                  <select class="form-select" name="userId" style="margin-top: 10px;" formControlName="userId">
+                      <option *ngFor="let value of allUsers" [value]="value.id" >{{value.userName}}</option>
+                  </select>
+
+                  <input class="btn btn-primary" style="margin-top: 10px;" type="submit" [disabled]="form.invalid" value="Create">
+            </div>
+      </form>
+</div>
+
+<div *ngIf="error">
+    <p class="alert" style="text-align: center; color: red;">
+        {{errorMessage}}
+    </p>
+</div>
